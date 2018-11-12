@@ -25,8 +25,8 @@ void setup()
   fill(255,255,255);
   String portName = Serial.list()[1]; 
   myPort = new Serial(this, portName, 9600);
-  img1 = loadImage("on.png");
-  img2 = loadImage("off.png");
+  img1 = loadImage("off.png");
+  img2 = loadImage("on.png");
 }
 
 void draw(){
