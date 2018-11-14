@@ -2,34 +2,41 @@
  * Textile Game Controller workshop 
  * Working with Arduino Micro board and conductive materials
  * Digital switch example
- * Arduino Example code:
- * https://www.arduino.cc/en/Tutorial/SerialCallResponse
+ * Based on based on this Lab on the ITP Physical Computing site: 
+ * https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-an-arduino/
  * Social Body Lab, 2018 Oct.
 **************************************************************************/
 
-char val;
-int felt = 0;
-int value = 0;
-int inByte = 0;
+int sensor1val;
+int sensor2val;
+int sensor3val;
 
 void setup() {
-Serial.begin(9600);
-establishContact();
+  //start serial connection
+  Serial.begin(9600);
 }
 
 void loop() {
-if(Serial.available()>0);{
-inByte=Serial.read();
+  // read the sensor value
+  sensor1val = analogRead(0);
+  // print out the sensor value
+  Serial.print(sensor1val);
+  // print a comma to separate the values
+  Serial.print(",");
 
-value= analogRead (felt);
-value = value/4;
-delay(10);
-}
-Serial.write(value);
-}
+  // read the sensor value
+  sensor2val = analogRead(1);
+  // print out the sensor value
+  Serial.print(sensor2val);
+  // print a comma to separate the values
+  Serial.print(",");
 
-void establishContact(){
-while(Serial.available()<=0){
-Serial.print('A');
-delay(300);
-}}
+  // read the sensor value
+  sensor3val = analogRead(2);
+  // print out the sensor value and add a line break
+  Serial.println(sensor3val);
+
+  delay(1); // the delay is necessary for the serial communication
+
+
+}
