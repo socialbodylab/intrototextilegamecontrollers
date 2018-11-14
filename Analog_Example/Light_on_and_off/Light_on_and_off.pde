@@ -1,56 +1,48 @@
 /**************************************************************************
  * Textile Game Controller workshop 
  * Working with Arduino Micro board and conductive materials
-* Analog sensor example
+ * Analog sensor example
  * Works with AnalogReadSerial example in Arduino
  * Based on based on this Lab on the ITP Physical Computing site: 
  * https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-an-arduino/
-**************************************************************************/
+ * Social Body Lab, 2018 Oct.
+ **************************************************************************/
 //Processing file
 
 import processing.serial.*;
 Serial myPort;    
 int value;
-int x = 0;
-int y = 0;
-PImage img1;
+PImage img1; 
 PImage img2;
+int threshold1 = 900;
 // change this to the threshold for your sensor
-int threshold1 = 980;
-int threshold2 = 960;
 
-int threshold3 = 950;
-int threshold4 = 930;
 void setup()
 {
   size(900, 900);
+  background(225);
   stroke(160);
-  fill(255,255,255);
+  fill(255, 255, 255);
+
   String portName = Serial.list()[1];
   myPort = new Serial(this, portName, 9600);
   // read incoming bytes to a buffer
   // until you get a linefeed (ASCII 10):
   myPort.bufferUntil('\n');
-  img1 = loadImage("cloud.png");
-  img2 = loadImage("sky.png");
+  img1 = loadImage("on.png");
+  img2 = loadImage("off.png");
 }
 
-void draw(){
-background(img2);
-image(img1, x+378, y+378, 126,95);
-  
-if ((value <= threshold1) && (value >= threshold2)){
-y += 1;
+void draw() {
+  rect(0, 0, 900, 900);
+
+  if (value >= threshold1) {
+    image(img2, 0, 0);
+  } else {
+    image(img1, 0, 0);
+  }
 }
 
-else if ((value <= threshold3) && (value >= threshold4)){
-y -= 1;
-}
-
-else{
-
-}}
-    
 void serialEvent(Serial myPort) {
   // read the serial buffer:
   String myString = myPort.readStringUntil('\n');
